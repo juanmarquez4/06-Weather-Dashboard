@@ -1,6 +1,6 @@
 let inputBtn = $("#btn");
 let currentCard = $("#currentCard");
-
+let futureCard = $("#futureCard");
 
 inputBtn.click (function(){
     getApi();
@@ -15,7 +15,6 @@ function getApi(){
 
     fetch(queryURL)
         .then(function(response){
-        console.log(response)
         return response.json();
         })
         .then(function(data){
@@ -27,37 +26,25 @@ function getApi(){
 
         fetch(queryURL2)
             .then(function(response){
-            console.log(response)
             return response.json();
             })
             .then(function(data){
             console.log(data)
             
-            // resets card content
+            // resets current card content
             currentCard.empty()
 
             // Current Conditions
             let cityName = city;
-            console.log(cityName);
-            
             let icon = data.current.weather[0].icon;
-            console.log(icon);
-    
             let temperature = data.current.temp;
-            console.log(temperature);
-
             let wind = data.current.wind_speed;
-            console.log(wind);
-    
             let humidity = data.current.humidity;
-            console.log(humidity);
-    
             let uvi = data.current.uvi;
-            console.log(uvi);
     
-            var currentWeather = 
+            let currentWeather = 
                 `
-                <div class="card">
+                <div class="card col-2 p-3">
                 <h5 class="card-title">${cityName} <img src="http://openweathermap.org/img/wn/${icon}@2x.png"></h5>
                 <h6 class="card-text">Temp: ${temperature} °C</h6>
                 <h6 class="card-text">Wind: ${wind} m/s</h6>
@@ -65,18 +52,35 @@ function getApi(){
                 <h6 class="card-text">UV Index: ${uvi}</h6>
                 </div>
                 `
-
-            
             currentCard.append(currentWeather);
-            
-            });
 
-        
+            // resets current card content
+            futureCard.empty()
 
-        });
+            // Future Conditions 
+            for(let i=0; i<5;i++){
 
-       
+                let iconDaily = data.daily[i].weather[0].icon;
+                let temperatureDaily = data.daily[i].temp.day;
+                let windDaily = data.daily[i].wind_speed;
+                let humidityDaily = data.daily[i].humidity;
+                let uviDaily = data.daily[i].uvi;
     
+                let futureWeather =
+                `
+                    <div class="col-2 card me-3 p-3">
+                    <h5 class="card-title">${cityName} <img src="http://openweathermap.org/img/wn/${iconDaily}@2x.png"></h5>
+                    <h6 class="card-text">Temp: ${temperatureDaily} °C</h6>
+                    <h6 class="card-text">Wind: ${windDaily} m/s</h6>
+                    <h6 class="card-text">Humidity: ${humidityDaily} %</h6>
+                    <h6 class="card-text">UV Index: ${uviDaily}</h6>
+                    </div>
+                    `
+                futureCard.append(futureWeather);
+
+            }
+            });
+        });
 }
 
 
