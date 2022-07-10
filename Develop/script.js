@@ -1,7 +1,11 @@
 let inputBtn = $("#btn");
 let currentCard = $("#currentCard");
 let futureCard = $("#futureCard");
+let mesageCard = $("#mesageCard");
+let currentTitle = $("#currentTitle");
+let forecastTitle = $("#forecastTitle");
 
+// search button finction
 inputBtn.click (function(){
     getApi();
 })
@@ -34,7 +38,11 @@ function getApi(){
             // resets current card content
             currentCard.empty()
 
-            // Current Conditions
+            // gets current time by time zone
+            let currentDate = moment().tz(data.timezone).format("M/D/YYYY");
+            console.log(currentDate);
+
+            // Current Weather Conditions
             let cityName = city;
             let icon = data.current.weather[0].icon;
             let temperature = data.current.temp;
@@ -45,19 +53,22 @@ function getApi(){
             let currentWeather = 
                 `
                 <div class="card col-2 p-3">
-                <h5 class="card-title">${cityName} <img src="http://openweathermap.org/img/wn/${icon}@2x.png"></h5>
+                <h4 class="card-title">${cityName}</h4>
+                <h5 class="card-title text-center">${currentDate}</h5>
+                <img src="http://openweathermap.org/img/wn/${icon}@2x.png">
                 <h6 class="card-text">Temp: ${temperature} °C</h6>
                 <h6 class="card-text">Wind: ${wind} m/s</h6>
                 <h6 class="card-text">Humidity: ${humidity} %</h6>
                 <h6 class="card-text">UV Index: ${uvi}</h6>
                 </div>
+                <div class="card col ms-3"></div>
                 `
             currentCard.append(currentWeather);
 
             // resets current card content
             futureCard.empty()
 
-            // Future Conditions 
+            // Future Weather Conditions 
             for(let i=0; i<5;i++){
 
                 let iconDaily = data.daily[i].weather[0].icon;
@@ -65,11 +76,15 @@ function getApi(){
                 let windDaily = data.daily[i].wind_speed;
                 let humidityDaily = data.daily[i].humidity;
                 let uviDaily = data.daily[i].uvi;
+                let futureDate = moment(currentDate).add(i+1,"d").format("M/D/YYYY");
+                console.log(futureDate);
     
                 let futureWeather =
-                `
-                    <div class="col-2 card me-3 p-3">
-                    <h5 class="card-title">${cityName} <img src="http://openweathermap.org/img/wn/${iconDaily}@2x.png"></h5>
+                    `
+                    <div class="col-2 card me-3 p-3 text-white bg-primary">
+                    <h4 class="card-title">${cityName}</h4>
+                    <h5 class="card-title text-center">${futureDate}</h5>
+                    <img src="http://openweathermap.org/img/wn/${iconDaily}@2x.png">
                     <h6 class="card-text">Temp: ${temperatureDaily} °C</h6>
                     <h6 class="card-text">Wind: ${windDaily} m/s</h6>
                     <h6 class="card-text">Humidity: ${humidityDaily} %</h6>
@@ -77,8 +92,38 @@ function getApi(){
                     </div>
                     `
                 futureCard.append(futureWeather);
-
             }
+
+            // resets titles
+            currentTitle.empty()
+            forecastTitle.empty()
+
+            // weather titles
+
+                let currentWeatherTitle = 
+                `
+                    <h5 class="card-title p-0">Current Weather:</h5>
+                `
+
+                let currentForecastTitle =
+                `
+                    <h5 class="card-title p-0">5-Day Forecast:</h5>
+                `
+                currentTitle.append(currentWeatherTitle);
+                forecastTitle.append(currentForecastTitle);
+
+            // resets message content 
+            mesageCard.empty()
+
+            // Message Card
+
+                let currentMesage =
+                `
+                    <div class="card"> 
+                    <h6 class="card-text text-center m-3">"Whether the weather be cold, Or whether the weather be hot, We'll weather the weather Whatever the weather, Whether we like it or not!"</h6>
+                    </div>
+                `
+                mesageCard.append(currentMesage);
             });
         });
 }
