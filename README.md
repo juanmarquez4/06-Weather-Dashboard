@@ -1,3 +1,18 @@
+Weather Dashboard
+
+Description: -This week's Challenge is the development of a Weather app using html, CSS and Javascript.
+
+Here you can find the links for the Weather Dashboard:
+
+-https://github.com/juanmarquez4/06-Weather-Dashboard -https://juanmarquez4.github.io/06-Weather-Dashboard/
+
+![Screen Shot 2022-07-11 at 10 17 19 pm (2)](https://user-images.githubusercontent.com/67566810/178263603-373fd728-5ab4-4b7d-9540-5176254b8c7f.png)
+
+
+
+
+
+
 # 06 Server-Side APIs: Weather Dashboard
 
 ## Your Task
