@@ -11,6 +11,7 @@
 </head>
 <body>
     <main class="m-3">
+
         <div class="card bg-primary bg-gradient">
             <h3 class="text-center m-3 text-white"> Weather Dashboard</h3>
         </div>
@@ -21,14 +22,16 @@
                     <h5 class="card-title">Search for a city:</h5>
                     <input type="text" class="form-control my-3" placeholder="Sydney" id="input">
                     <button class="btn btn-primary" type="button" id="btn">Search</button>
-                    <div> </div>
+                </div>
+                <div class="d-grid cityBtn" id="menu">
+                <!-- searched cities will be appended in this div -->
                 </div>
             </div>
 
             <div class="col mx-3">
 
                 <div class="row ms-3" id="currentTitle">
-                    <!-- current weather title will be appended in this div -->
+                <!-- current weather title will be appended in this div -->
                 </div>
                 
                 <div class="row m-3" id="currentCard">    
